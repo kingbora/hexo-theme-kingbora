@@ -1,0 +1,14 @@
+<!-- 文章标签 -->
+<div class="ui-tag-wrap">
+    <%
+    site.tags.forEach(function (tag, index) {
+      if (index < 39) {
+    %>
+      <span class="ui-tag ui-tag-border" color="green">
+          <a class="ui-tag-badge" href="<%= url_for(tag.path) %>" title="<%= tag.name %>"><%- tag.name %></a>
+      </span>
+    <%
+      }
+    }); 
+    %>
+  </div>

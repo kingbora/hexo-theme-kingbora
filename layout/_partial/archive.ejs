@@ -1,0 +1,16 @@
+<main class="ui-content-wrap">
+  <section class="ui-archive">
+    <% var lastyear; %>
+    <% site.posts.each(function(post){ %>
+      <% var year = post.date.year() %>
+      <% if(lastyear !== year){ %>
+        <h4 class="ui-year"><%= year %></h4>
+        <% lastyear = year %>
+      <% } %>
+      <div class="ui-archive-item">
+        <span class="ui-date"><%= post.date.format('YYYY-MM-DD') %></span>
+        <a class="ui-article-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+      </div>
+    <% }) %>
+  </section>
+</main>

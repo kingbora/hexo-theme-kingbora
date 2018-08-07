@@ -1,0 +1,9 @@
+<!-- 文章分类 -->
+<ul class="ui-category">
+    <% site.categories.forEach(function(cat){ %>
+    <li class="ui-category-item ui-clear-fix">
+        <a class="ui-category-text" href="<%= url_for(cat.path) %>"><%= cat.name %></a>
+        <span class="ui-category-count"><%= cat.length %>篇</span>
+    </li>
+    <% }); %>
+</ul>

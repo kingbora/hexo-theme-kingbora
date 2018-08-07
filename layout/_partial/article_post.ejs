@@ -1,0 +1,51 @@
+<main class="ui-content-wrap">
+    <div class="ui-breadcrumb">
+        <span class="ui-breadcrumb-item">
+            <a class="ui-breadcrumb-text" href="/">首页</a>
+            <span class="ui-breadcrumb-separator">/</span>
+        </span>
+        <% if(is_category()) { %>
+            <span class="ui-breadcrumb-item">
+                <span class="ui-breadcrumb-text">
+                    分类
+                </span>
+                <span class="ui-breadcrumb-separator">/</span>
+            </span>
+            <span class="ui-breadcrumb-item">
+                <span class="ui-breadcrumb-text">
+                    <%= page.category %>
+                </span>
+            </span>
+        <% } else if(is_tag()) { %>
+            <span class="ui-breadcrumb-item">
+                <span class="ui-breadcrumb-text">
+                    标签
+                </span>
+                <span class="ui-breadcrumb-separator">/</span>
+            </span>
+            <span class="ui-breadcrumb-item">
+                <span class="ui-breadcrumb-text">
+                    <%= page.tag %>
+                </span>
+            </span>
+        <% } %>
+    </div>
+    <% page.posts.each(function(post, index) { %>
+        <%- partial('_partial/post_entry', {index: true, post: post}) %>
+    <% }) %>
+    <% if(page.total > 1) { %>
+    <div class="pagination">
+        <% if(page.prev_link === ''){ %>
+            <span class="extend disabled">
+                <i class="ion-ios-arrow-back"></i>
+            </span>
+        <% } %>
+        <%- paginator({ total: page.total, prev_text: '<i class="ion-ios-arrow-back"></i>', next_text: '<i class="ion-ios-arrow-forward"></i>'}) %>
+        <% if(page.next_link === ''){ %>
+            <span class="extend disabled">
+                <i class="ion-ios-arrow-forward"></i>
+            </span>
+        <% } %>
+    </div>
+    <% } %>
+</main>

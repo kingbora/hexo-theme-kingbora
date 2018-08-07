@@ -1,0 +1,14 @@
+## menu
+menu:
+  home:
+    name: 首页
+    url: /
+  web:
+    name: 归档
+    url: /archives/
+  about:
+    name: 关于我
+    url: /about/
+
+defaultImgs:
+  -

@@ -1,0 +1,35 @@
+<main class="ui-content-wrap animated slideInUp">
+    <article class="ui-card ui-article">
+        <div class="ui-card-body">
+            <div class="ui-article-header">
+                <h3 class="ui-article-title">
+                    <%- page.title %>
+                </h3>
+                <div class="ui-article-type">
+                    <span class="ui-tag ui-tag-original">原</span>
+                    <%
+                                page.tags.forEach(function (tag, index) {
+                                    if (index < 39) {
+                            %>
+                        <span class="ui-tag ui-tag-default">
+                            <a class="ui-tag-badge" href="<%= url_for(tag.path) %>" title="<%= tag.name %>">
+                                <%- tag.name %>
+                            </a>
+                        </span>
+                        <%
+                                    }
+                                }); 
+                            %>
+                </div>
+            </div>
+            <div class="ui-article-body ui-mark-down">
+                <%- page.content %>
+            </div>
+            <div class="ui-content-divide">
+                <div class="ui-divide-line"></div> 
+                <p class="ui-divide-content">本文结束<i class="ion-ios-paw"></i>感谢您的阅读</p>
+            </div>
+            <%- partial("_widget/pagination", {index: false, post:page})%>
+        </div>
+    </article>
+</main>

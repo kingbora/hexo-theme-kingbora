@@ -1,0 +1,20 @@
+<main class="ui-content-wrap">
+    <% page.posts.each(function(post, index) { %>
+        <%- partial('_partial/post_entry', {index: true, post: post}) %>
+    <% }) %> 
+    <% if (site.posts.length > config.per_page) { %>
+    <div class="pagination">
+        <% if(page.prev_link === ''){ %>
+            <span class="extend disabled">
+                <i class="ion-ios-arrow-back"></i>
+            </span>
+        <% } %>
+        <%- paginator({ total: Math.ceil(site.posts.length / config.per_page), prev_text: '<i class="ion-ios-arrow-back"></i>', next_text: '<i class="ion-ios-arrow-forward"></i>'}) %>
+        <% if(page.next_link === ''){ %>
+            <span class="extend disabled">
+                <i class="ion-ios-arrow-forward"></i>
+            </span>
+        <% } %>
+    </div>
+    <% } %>
+</main>

@@ -1,0 +1,9 @@
+<header class="ui-header">
+    <ul class="ui-menu">
+        <% for (var i in theme.menu){ %>
+            <li class="<%= url_for(theme.menu[i].url) == url_for(path).substring(0, url_for(path).lastIndexOf('/') + 1) ? 'active' : '' %>">
+                <a href="<%= url_for(theme.menu[i].url) %>"><%= theme.menu[i].name %></a>
+            </li>
+        <% } %>
+    </ul>
+</header>

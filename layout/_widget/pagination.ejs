@@ -1,0 +1,40 @@
+<% if (post.prev || post.next){ %>
+    <ul class="ui-pager ui-clear-fix">
+      <% if (post.prev){ %>
+        <li class="ui-float-right">
+          <a href="<%- url_for(post.prev.path) %>">
+                <span class="ui-pager-prev-content">
+                    <% if (post.prev.title){ %>
+                      <%= post.prev.title %>
+                      <% } else { %>
+                          无标题
+                      <% } %>
+                </span>
+                <i class="ion-chevron-right"></i>
+          </a>
+        </li>
+        <% } else { %>
+          <li class="ui-float-right">
+              没有上一篇了
+          </li>
+          <% } %>
+          <% if (post.next){ %>
+            <li class="ui-float-left">
+              <a href="<%- url_for(post.next.path) %>">
+                  <i class="ion-chevron-left"></i>
+                  <span class="ui-pager-next-content">
+                      <% if (post.next.title){ %>
+                        <%= post.next.title %>
+                      <% } else { %>
+                          无标题
+                      <% } %>
+                  </span>
+              </a>
+            </li>
+            <% } else { %>
+              <li class="ui-float-right">
+                  没有下一篇了
+              </li>
+            <% } %>
+    </ul>
+    <% } %>

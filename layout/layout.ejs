@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="<%= config.language%>">
+    <head>
+        <!--Setting-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta http-equiv="Cache-Control" content="no-transform">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta name="apple-mobile-web-app-capable" content="<%= config.title%>">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no,email=no,adress=no">
+        <meta name="browsermode" content="application">
+        <meta name="screen-orientation" content="portrait">
+        <%- favicon_tag("/images/favicon.ico") %>
+        <%- css("/css/ionicons.min.css") %>
+        <%- css("/css/animate.css") %>
+        <%- css("/css/style.css") %>
+        <%- css("/css/markdown.css") %>
+        <%- css("/css/code.css") %>
+        <%- js("/scripts/jquery-3.3.1.min.js") %>
+    </head>
+    <body>
+        <div id="ui-app">
+            <!-- 头部 -->
+            <%- partial("_partial/header", {cache: true}) %>
+            <!-- 主体内容 -->
+            <section class="ui-section">
+                <%- body %>
+                <!-- 分类、标签、归档等 -->
+                <%- partial("_partial/sidebar") %>
+            </section>
+            <%- partial("_partial/footer", {cache: true}) %>
+            <a id="ui-back-top" data-title="返回顶部">
+                <i class="ion-ios-arrow-up"></i>
+            </a> 
+        </div>
+        <%- js("/scripts/app.js") %>
+        <%- js("/scripts/plugin.js") %>
+        <script src="//cdn1.lncld.net/static/js/2.5.0/av-min.js"></script>
+        <script>
+            var APP_ID = '<%- config.leancloud_visitors.app_id %>';
+            var APP_KEY = '<%- config.leancloud_visitors.app_key %>';
+            AV.init({
+                appId: APP_ID,
+                appKey: APP_KEY
+            });
+            // 显示次数
+            function showTime(Counter) {
+                var query = new AV.Query("Counter");
+                var target = $(".leancloud_visitors");
+                var len = target.length;
+                if(len > 0){
+                    for(var i = 0; i < len; i++) {
+                        var url = $(target[i]).attr('id').trim();
+                        (function(_url, _index) {
+                            // where field
+                            query.equalTo("words", _url);
+                            console.log(_url, _index);
+                            // count 
+                            query.count().then(function (number) {
+                                // There are number instances of MyClass where words equals url.
+                                $(target[_index]).text(number?  number : '--');
+                            }, function (error) {
+                            // error is an instance of AVError.
+                            });
+                        })(url, i);
+                    }
+                }
+            }
+            // 追加pv
+            function addCount(Counter) {
+                var url = $(".leancloud_visitors").length > 0 ? $(".leancloud_visitors").attr('id').trim() : 'icafebolger.com';
+                var Counter = AV.Object.extend("Counter");
+                var query = new Counter;
+                query.save({
+                    words: url
+                }).then(function (object) {
+                })
+            }
+            $(function () {
+                var Counter = AV.Object.extend("Counter");
+                addCount(Counter);
+                showTime(Counter);
+            });
+        </script>
+    </body>
+</html>

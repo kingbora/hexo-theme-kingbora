@@ -1,0 +1,13 @@
+<%
+    const topic = toc(trim(post.content), {
+        class: 'ui-post-toc',
+        list_number: false,
+        max_depth: 4
+    })
+    if (topic) {
+%>
+    <div class="ui-toc-detail">
+        <%- topic %>
+    </div>
+    <div class="ui-toc-bar"><div>
+<% } %>
